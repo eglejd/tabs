@@ -1,10 +1,10 @@
 files:
-  - source: /locales/en/en.json
+  - source: /locales/en/*.json
     translation: /locales/%two_letters_code%/%two_letters_code%.json
 ```
 
-**5.** Click the green **"Commit changes..."** button (top right)
+**5.** Click green **"Commit changes..."** button top right
 
-**6.** Use this commit message:
+**6.** Commit message:
 ```
-feat: add Crowdin configuration file
+fix: correct crowdin.yml syntax
