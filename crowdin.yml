@@ -1,0 +1,10 @@
+files:
+  - source: /locales/en/en.json
+    translation: /locales/%two_letters_code%/%two_letters_code%.json
+```
+
+**5.** Click the green **"Commit changes..."** button (top right)
+
+**6.** Use this commit message:
+```
+feat: add Crowdin configuration file
