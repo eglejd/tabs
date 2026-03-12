@@ -1,2 +1,2 @@
-# mindsorter
-Localization strings for the Mindsorter mental clarity app
+# tabs
+Localization strings for the Tabs mental clarity and productivity app
