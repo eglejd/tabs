@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mindsorter — Your mind, organized.</title>
+<title>Tabs — Close a few.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -67,31 +67,97 @@
     color: var(--accent);
   }
 
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(12,12,16,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
   }
 
-  .nav-links a {
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--faint);
+    border-radius: 12px;
+    padding: 48px 40px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    animation: up 0.3s ease forwards;
   }
 
-  .nav-links a:hover { color: var(--text); }
-
-  .nav-links .cta-link a {
+  .modal-code {
+    font-size: 11px;
+    letter-spacing: 0.2em;
     color: var(--accent);
-    font-weight: 500;
+    opacity: 0.6;
+    margin-bottom: 20px;
   }
+
+  .modal-message {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .modal-sub {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .modal-close {
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--faint);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Epilogue', sans-serif;
+  }
+
+  .modal-close:hover { color: var(--text); }
 
   /* ── HERO ── */
   .hero {
     padding: 88px 0 72px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: up 0.6s 0.05s ease forwards;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: up 0.6s 0.05s ease forwards;
   }
 
   .hero h1 {
@@ -105,10 +171,7 @@
     animation: up 0.6s 0.1s ease forwards;
   }
 
-  /* the twist: accent-colored first word, tight tracking contrast */
-  .hero h1 .accent-word {
-    color: var(--accent);
-  }
+  .hero h1 .accent-word { color: var(--accent); }
 
   .hero p {
     font-size: 17px;
@@ -146,22 +209,6 @@
   }
 
   .btn-primary:hover { opacity: 0.88; }
-
-  .btn-secondary {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    border-bottom: 1px solid var(--faint);
-    padding-bottom: 1px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .btn-secondary:hover {
-    color: var(--text);
-    border-color: var(--muted);
-  }
 
   /* ── VALUE PROPS ── */
   .value-section {
@@ -324,6 +371,25 @@
     margin-left: 1px;
   }
 
+  .lang-pill.lang-soon {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .lang-pill.lang-soon:hover {
+    border-color: var(--faint);
+    color: var(--muted);
+  }
+
+  .coming {
+    font-size: 11px;
+    color: var(--faint);
+    border-left: 1px solid var(--faint);
+    padding-left: 7px;
+    margin-left: 1px;
+    letter-spacing: 0.04em;
+  }
+
   .crowdin-note {
     font-size: 12px;
     color: var(--faint);
@@ -420,31 +486,34 @@
     .feat:nth-child(2) { border-radius: 0; }
     .feat:nth-child(3) { border-radius: 0; }
     .feat:nth-child(4) { border-radius: 0 0 10px 10px; }
-    .nav-links { display: none; }
     .pricing-cta { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
 <body>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal">
+    <div class="modal-code">ERROR 418</div>
+    <div class="modal-message">Under development.<br>Like we all are.</div>
+    <p class="modal-sub">Check back soon – or don't.<br>No pressure.</p>
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('active')">close this tab</button>
+  </div>
+</div>
+
 <div class="page">
 
   <nav>
-    <span class="wordmark">Mindsorter</span>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Log In</a></li>
-      <li class="cta-link"><a href="#">Sign Up</a></li>
-    </ul>
+    <span class="wordmark">Tabs</span>
   </nav>
 
   <section class="hero">
-    <h1><span class="accent-word">Less noise,</span><br>more clarity.</h1>
-    <p>Turn the chaos in your mind into focused flow — one thought at a time.</p>
+    <p class="eyebrow">Less tabs, more clarity.</p>
+    <h1><span class="accent-word">Too many tabs</span><br>open up there?</h1>
+    <p>Turn the chaos in your mind into focused flow – one thought at a time.</p>
     <div class="hero-actions">
-      <a href="#" class="btn-primary">Try It Free</a>
-      <a href="#" class="btn-secondary">See How It Works</a>
+      <button class="btn-primary" onclick="document.getElementById('modal').classList.add('active')">Try It Free</button>
     </div>
   </section>
 
@@ -452,7 +521,7 @@
     <div class="value-card">
       <div class="value-num">01</div>
       <div class="value-title">Dump it all out</div>
-      <p class="value-body">Rumination, mental load, overthinking — get it out of your head.</p>
+      <p class="value-body">Rumination, mental load, overthinking – get it out of your head.</p>
     </div>
     <div class="value-card">
       <div class="value-num">02</div>
@@ -484,7 +553,7 @@
     <div class="feat">
       <div class="feat-marker"></div>
       <div class="feat-title">Your kind of support</div>
-      <p class="feat-body">Choose how Mindsorter shows up for you — as a Friend, a Mentor, or a Manager.</p>
+      <p class="feat-body">Choose how Tabs shows up for you – as a Friend, a Mentor, or a Manager.</p>
     </div>
   </div>
 
@@ -492,26 +561,24 @@
     <p class="lang-label">Available in</p>
     <div class="langs">
       <div class="lang-pill">🇬🇧 <span>English</span></div>
-      <div class="lang-pill">🇱🇹 <span>Lithuanian</span><span class="native">Lietuvių</span></div>
-      <div class="lang-pill">🇯🇵 <span>Japanese</span><span class="native">日本語</span></div>
-      <div class="lang-pill">🇩🇪 <span>German</span><span class="native">Deutsch</span></div>
+      <div class="lang-pill lang-soon">🇱🇹 <span>Lithuanian</span><span class="coming">coming soon</span></div>
+      <div class="lang-pill lang-soon">🇯🇵 <span>Japanese</span><span class="coming">coming soon</span></div>
+      <div class="lang-pill lang-soon">🇩🇪 <span>German</span><span class="coming">coming soon</span></div>
     </div>
-
   </div>
 
   <div class="pricing-cta">
-    <p>Start for free — no credit card required.</p>
-    <a href="#" class="btn-primary">Try It Free</a>
+    <p>Start for free – no credit card required.</p>
   </div>
 
   <footer>
     <div class="footer-left">
       <span class="footer-tagline">Your mind, organized.</span>
-      <span class="footer-copy">© 2025 Mindsorter. All rights reserved.</span>
+      <span class="footer-copy">© 2025 Tabs. All rights reserved.</span>
     </div>
     <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <a href="#" onclick="document.getElementById('modal').classList.add('active');return false;">Privacy Policy</a>
+      <a href="#" onclick="document.getElementById('modal').classList.add('active');return false;">Terms of Service</a>
     </div>
   </footer>
 
