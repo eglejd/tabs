@@ -3,12 +3,10 @@
   "hero.subtitle": "Turn the chaos in your mind into focused flow — one thought at a time.",
   "hero.cta.primary": "Try It Free",
   "hero.cta.secondary": "See How It Works",
-
   "value.dump.title": "Dump it all out",
   "value.dump.description": "Rumination, mental load, overthinking — get it out of your head.",
   "value.get.title": "Get what matters",
   "value.get.description": "Clear action steps, a list of priorities, and scheduled work and breaks.",
-
   "features.sort.title": "Smart Sorting",
   "features.sort.description": "Drag and drop your thoughts into categories that actually make sense to you.",
   "features.focus.title": "Focus Mode",
@@ -19,16 +17,14 @@
   "features.personas.description": "Choose how Mindsorter shows up for you — as a Friend, a Mentor, or a Manager.",
   "features.celebrations.title": "Milestone Celebrations",
   "features.celebrations.description": "Hit a goal? Mindsorter notices. Small wins deserve a dopamine boost.",
-
   "nav.home": "Home",
   "nav.features": "Features",
   "nav.pricing": "Pricing",
   "nav.login": "Log In",
   "nav.signup": "Sign Up",
-
   "footer.tagline": "Your mind, organized.",
   "footer.privacy": "Privacy Policy",
   "footer.terms": "Terms of Service",
   "footer.copyright": "© 2025 Mindsorter. All rights reserved.",
-
-  "pricing.cta": "Start for free
+  "pricing.cta": "Start for free — no credit card required."
+}
