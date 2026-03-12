@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindsorter — Your mind, organized.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:     #0C0C10;
+    --bg2:    #111118;
+    --bg3:    #16151F;
+    --text:   #E9E5F2;
+    --muted:  #7A748A;
+    --faint:  #2E2B3A;
+    --accent: #B8A9E8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    padding: 36px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    animation: up 0.5s ease forwards;
+  }
+
+  .wordmark {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-links .cta-link a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 88px 0 72px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 6.5vw, 62px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: up 0.6s 0.1s ease forwards;
+  }
+
+  /* the twist: accent-colored first word, tight tracking contrast */
+  .hero h1 .accent-word {
+    color: var(--accent);
+  }
+
+  .hero p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.72;
+    color: var(--muted);
+    max-width: 460px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: up 0.6s 0.2s ease forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    opacity: 0;
+    animation: up 0.6s 0.3s ease forwards;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 11px 24px;
+    background: var(--accent);
+    color: #0C0C10;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-secondary {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--faint);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    color: var(--text);
+    border-color: var(--muted);
+  }
+
+  /* ── VALUE PROPS ── */
+  .value-section {
+    padding: 0 0 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    opacity: 0;
+    animation: up 0.6s 0.38s ease forwards;
+  }
+
+  .value-card {
+    background: var(--bg2);
+    padding: 32px 28px;
+    transition: background 0.2s;
+  }
+
+  .value-card:hover { background: var(--bg3); }
+  .value-card:first-child { border-radius: 8px 0 0 8px; }
+  .value-card:last-child  { border-radius: 0 8px 8px 0; }
+
+  .value-num {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 20px;
+  }
+
+  .value-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .value-body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  /* ── DIVIDER ── */
+  .rule {
+    width: 1px;
+    height: 40px;
+    background: var(--faint);
+    margin: 0 0 72px;
+    opacity: 0;
+    animation: fadeIn 0.6s 0.5s ease forwards;
+  }
+
+  /* ── FEATURES ── */
+  .features-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: up 0.5s 0.55s ease forwards;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-bottom: 80px;
+    background: var(--faint);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .feat {
+    background: var(--bg2);
+    padding: 28px 24px;
+    opacity: 0;
+    animation: up 0.5s ease forwards;
+    transition: background 0.2s;
+  }
+
+  .feat:hover { background: var(--bg3); }
+
+  .feat:nth-child(1) { animation-delay: 0.58s; border-radius: 10px 0 0 0; }
+  .feat:nth-child(2) { animation-delay: 0.64s; border-radius: 0 10px 0 0; }
+  .feat:nth-child(3) { animation-delay: 0.70s; border-radius: 0 0 0 10px; }
+  .feat:nth-child(4) { animation-delay: 0.76s; border-radius: 0 0 10px 0; }
+
+  .feat-marker {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 18px;
+  }
+
+  .feat-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .feat-body {
+    font-size: 13px;
+    line-height: 1.62;
+    color: var(--muted);
+  }
+
+  /* ── LANGUAGES ── */
+  .lang-section {
+    border-top: 1px solid var(--faint);
+    padding: 56px 0 72px;
+    opacity: 0;
+    animation: up 0.5s 0.82s ease forwards;
+  }
+
+  .lang-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .langs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .lang-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border: 1px solid var(--faint);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+
+  .lang-pill:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .lang-pill .native {
+    font-size: 12px;
+    color: var(--faint);
+    border-left: 1px solid var(--faint);
+    padding-left: 7px;
+    margin-left: 1px;
+  }
+
+  .crowdin-note {
+    font-size: 12px;
+    color: var(--faint);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── PRICING CTA ── */
+  .pricing-cta {
+    background: var(--bg2);
+    border: 1px solid var(--faint);
+    border-radius: 10px;
+    padding: 32px 28px;
+    margin-bottom: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: up 0.5s 0.9s ease forwards;
+  }
+
+  .pricing-cta p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--faint);
+    padding: 28px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    opacity: 0;
+    animation: up 0.5s 0.95s ease forwards;
+  }
+
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-copy {
+    font-size: 11px;
+    color: var(--faint);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--faint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--muted); }
+
+  /* ── KEYFRAMES ── */
+  @keyframes up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .page { padding: 0 20px; }
+    .hero { padding: 64px 0 48px; }
+    .value-section { grid-template-columns: 1fr; }
+    .value-card:first-child { border-radius: 8px 8px 0 0; }
+    .value-card:last-child  { border-radius: 0 0 8px 8px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .feat:nth-child(1) { border-radius: 10px 10px 0 0; }
+    .feat:nth-child(2) { border-radius: 0; }
+    .feat:nth-child(3) { border-radius: 0; }
+    .feat:nth-child(4) { border-radius: 0 0 10px 10px; }
+    .nav-links { display: none; }
+    .pricing-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <span class="wordmark">Mindsorter</span>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Log In</a></li>
+      <li class="cta-link"><a href="#">Sign Up</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1><span class="accent-word">Less noise,</span><br>more clarity.</h1>
+    <p>Turn the chaos in your mind into focused flow — one thought at a time.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Try It Free</a>
+      <a href="#" class="btn-secondary">See How It Works</a>
+    </div>
+  </section>
+
+  <div class="value-section">
+    <div class="value-card">
+      <div class="value-num">01</div>
+      <div class="value-title">Dump it all out</div>
+      <p class="value-body">Rumination, mental load, overthinking — get it out of your head.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">02</div>
+      <div class="value-title">Get what matters</div>
+      <p class="value-body">Clear action steps, a list of priorities, and scheduled work and breaks.</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <p class="features-label">Features</p>
+
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-marker"></div>
+      <div class="feat-title">Smart Sorting</div>
+      <p class="feat-body">Drag and drop your thoughts into categories that actually make sense to you.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-marker"></div>
+      <div class="feat-title">Focus Mode</div>
+      <p class="feat-body">Block out the noise. Work on one thought bucket at a time.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-marker"></div>
+      <div class="feat-title">Daily Reflection</div>
+      <p class="feat-body">End each day with a clear head. Review what you sorted and what still needs attention.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-marker"></div>
+      <div class="feat-title">Your kind of support</div>
+      <p class="feat-body">Choose how Mindsorter shows up for you — as a Friend, a Mentor, or a Manager.</p>
+    </div>
+  </div>
+
+  <div class="lang-section">
+    <p class="lang-label">Available in</p>
+    <div class="langs">
+      <div class="lang-pill">🇬🇧 <span>English</span></div>
+      <div class="lang-pill">🇱🇹 <span>Lithuanian</span><span class="native">Lietuvių</span></div>
+      <div class="lang-pill">🇯🇵 <span>Japanese</span><span class="native">日本語</span></div>
+      <div class="lang-pill">🇩🇪 <span>German</span><span class="native">Deutsch</span></div>
+    </div>
+
+  </div>
+
+  <div class="pricing-cta">
+    <p>Start for free — no credit card required.</p>
+    <a href="#" class="btn-primary">Try It Free</a>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <span class="footer-tagline">Your mind, organized.</span>
+      <span class="footer-copy">© 2025 Mindsorter. All rights reserved.</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
