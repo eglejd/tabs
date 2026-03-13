@@ -1,4 +1,4 @@
-# Tabs — Localization Automation Project
+# Tabs – Localization Automation Project
 
 A work-in-progress localization pipeline built around **Tabs**, a mock mental clarity app.
 
@@ -8,7 +8,7 @@ A work-in-progress localization pipeline built around **Tabs**, a mock mental cl
 
 ## Why this exists
 
-Started to explore what current AI automation capabilities actually look like in practice — not just in theory. Less reading about pipelines, more building one.
+Started to explore what current AI automation capabilities actually look like in practice – not just in theory. Less reading about pipelines, more building one.
 
 ---
 
