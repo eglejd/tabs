@@ -46,17 +46,29 @@ Live site reflects updates
 | GitHub repository | ✅ Done |
 | Crowdin TMS integration (LT, JA, DE) | ✅ Done |
 | Landing page: [tabs.egle.works](https://tabs.egle.works) | ✅ Live |
-| Google Sheets → GitHub automation bridge | 🔄 In progress |
-| Glossary + style guide | 🔄 In progress |
-| Asana board (Agile sprint tracking) | 🔄 In progress |
+| Google Sheets → GitHub automation bridge | ✅ Done |
+| Glossary + style guide | ✅ Done |
+| Asana board (Agile sprint tracking) | ✅ Done |
+| DE + JA pretranslation via MT | ✅ Done |
+| LT translation | 🔄 In progress |
+| Translation review and approval | 🔄 In progress |
+| Netlify auto-deploy (replace Carrd) | 📋 Planned |
+| n8n workflow automation experiments | 📋 Planned |
 | Expand language pairs | 📋 Planned |
 | Invite colleagues to stress-test the workflow | 📋 Planned |
+
+![Asana board](https://github.com/user-attachments/assets/a0bc575a-2b4d-416f-8417-b0e94ea815d3)
+
+---
+
+Copy is managed in a Google Sheet (the single source of truth for all English strings). A Google Apps Script syncs the sheet to `locales/en/en.json` in this repository via the GitHub API on a daily trigger – no manual file editing required. Crowdin detects the commit and pulls the updated source strings automatically. Translations are produced via MT pre-translation (Crowdin Translate for DE and JA) and manual translation for LT, reviewed and approved in Crowdin, then exported back to GitHub as locale files. 
+The landing page at tabs.egle.works is currently updated manually from GitHub – auto-deploy via Netlify is a planned next step.
 
 ---
 
 ## Stack
 
-GitHub · Crowdin · Google Sheets · Apps Script · Asana · Carrd · Claude (AI pair programming throughout)
+GitHub · Crowdin · Google Sheets · Apps Script · Asana · Carrd · Claude (AI pair programming throughout) | Planned: Netlify · n8n
 
 ---
 
