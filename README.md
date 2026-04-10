@@ -53,22 +53,25 @@ Live site reflects updates
 | LT translation | 🔄 In progress |
 | Translation review and approval | 🔄 In progress |
 | Netlify auto-deploy (replace Carrd) | 📋 Planned |
-| n8n workflow automation experiments | 📋 Planned |
+| n8n workflow automation experiments | 🔄 In progress |
 | Expand language pairs | 📋 Planned |
 | Invite colleagues to stress-test the workflow | 📋 Planned |
 
-![Asana board](https://github.com/user-attachments/assets/a0bc575a-2b4d-416f-8417-b0e94ea815d3)
+![Asana board](https://github.com/user-attachments/assets/c53b6548-daff-4894-aaae-cb670ff4b91a)
 
 ---
 
-Copy is managed in a Google Sheet (the single source of truth for all English strings). A Google Apps Script syncs the sheet to `locales/en/en.json` in this repository via the GitHub API on a daily trigger – no manual file editing required. Crowdin detects the commit and pulls the updated source strings automatically. Translations are produced via MT pre-translation (Crowdin Translate for DE and JA) and manual translation for LT, reviewed and approved in Crowdin, then exported back to GitHub as locale files. 
-The landing page at tabs.egle.works is currently updated manually from GitHub – auto-deploy via Netlify is a planned next step.
+Copy is managed in a Google Sheet (the single source of truth for all English strings). A Google Apps Script syncs the sheet to locales/en/en.json in this repository via the GitHub API on a daily trigger – no manual file editing is required. Crowdin detects the commit and pulls the updated source strings automatically. Translations are produced via MT pre-translation (Crowdin Translate for DE and JA) and human translation for LT, reviewed and approved in Crowdin, and then exported back to GitHub as locale files.
+
+**Planned n8n Workflow:** Google Sheets (manual copy update) > GitHub $\rightarrow$ Crowdin native integration > Translation updated > n8n AI review > Sheet updated > Crowdin > GitHub.
+
+The landing page at tabs.egle.works is currently updated manually from GitHub; auto-deploy via Netlify is planned as the next step.
 
 ---
 
 ## Stack
 
-GitHub · Crowdin · Google Sheets · Apps Script · Asana · Carrd · Claude (AI pair programming throughout) | Planned: Netlify · n8n
+GitHub · Crowdin · Google Sheets · Apps Script · Asana · Carrd · Claude (AI pair programming throughout) · n8n | Planned: Netlify 
 
 ---
 
