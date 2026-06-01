@@ -14,9 +14,8 @@ Started to explore what current AI automation capabilities actually look like in
 
 ## What I'm figuring out
 
-AI can write code, generate scripts, guide integrations step by step, and help optimize prompts. But it has tunnel vision. It needs the right questions asked and real-world constraints pointed out.
+AI can write code, generate scripts, guide integrations step by step, and help optimize prompts. But it has tunnel vision. It needs the right questions asked and real-world constraints pointed out. One example: the default setup had strings managed directly in GitHub – which no real localization workflow does. Copywriters work in Google Sheets, not repos. Another example: Crowdin free tier has no webhook support, so n8n uses scheduled polling instead. Every constraint like this shapes the pipeline.
 
-One example: the default setup had strings managed directly in GitHub – which no real localization workflow does. Copywriters work in Google Sheets, not repos. Another example: Crowdin free tier has no webhook support, so n8n uses scheduled polling instead. Every constraint like this shapes the pipeline.
 ---
 
 ## Pipeline (in progress)
