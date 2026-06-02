@@ -48,21 +48,21 @@ n8n reads untranslated strings from Crowdin → AI translation (Groq)
 | i18n JSON string structure (30 strings) | ✅ Done |
 | GitHub repository | ✅ Done |
 | Crowdin TMS integration (LT, JA, DE) | ✅ Done |
-| Landing page: [tabs.egle.works](https://tabs.egle.works) | ✅ Live |
-| Google Sheets → GitHub automation bridge | ✅ Done |
+| Landing page: tabs.egle.works | ✅ Live |
 | Glossary + style guide | ✅ Done |
 | Asana board (Agile sprint tracking) | ✅ Done |
 | DE + JA pretranslation via MT | ✅ Done |
-| n8n: Sheets → GitHub workflow | ✅ Done
-| n8n: AI translation review workflow with 2 separate agents | 🔄 In progress
-| n8n: LT AI translation workflow | 🔄 In progress
-| Language config sheet | ✅ Done
-| Apps Script → GitHub bridge | ✅ Replaced by n8n
-| Translation review and approval | 🔄 In progress |
+| Language config sheet (routing logic) | ✅ Done |
+| n8n: Sheets → GitHub workflow | ✅ Done |
+| n8n: AI translation review workflow | 🔄 In progress |
+| n8n: LT AI translation workflow | 🔄 In progress |
+| Push approved LT translations to Crowdin | 🔄 In progress |
 | Netlify auto-deploy (replace Carrd) | 📋 Planned |
-| n8n workflow automation experiments | 🔄 In progress |
 | Expand language pairs | 📋 Planned |
-| Invite colleagues to stress-test the workflow | 📋 Planned |
+| Self-learning glossary loop: mine human post-edits → auto-update glossary and style guide → push to Crowdin | 📋 Planned |
+| Model benchmarking: test different AI models on the same translations to see which performs best | 📋 Planned |
+| Knowledge graph + QA dashboard:  map product concepts and their relationships, then use them to power a QA review dashboard. Tools: Obsidian → Neo4j, Lovable | 📋 Planned |
+| Stress-test with colleagues | 📋 Planned |
 
 ---
 
